@@ -20,7 +20,7 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 ## Invoice Extractor
 
-Navigate to `/invoices` to try the invoice extraction tool. Paste invoice text, specify the fields you want to capture, and the page will display the extracted values in a table. You can export the result as a CSV file.
+Navigate to `/invoices` to try the invoice extraction tool. Upload an invoice PDF, specify the fields you want to capture, and the page will display the extracted values in a table. You can export the result as a CSV file.
 
 ### Environment Variables
 

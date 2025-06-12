@@ -1,13 +1,36 @@
 'use client';
 
 import { useState } from 'react';
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
+import pdfjsWorker from 'pdfjs-dist/legacy/build/pdf.worker.entry';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default function Invoices() {
   const [invoiceText, setInvoiceText] = useState('');
+  const [file, setFile] = useState(null);
   const [fields, setFields] = useState(['customer name', 'price', 'quantity']);
   const [newField, setNewField] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const handleFileChange = async (e) => {
+    const f = e.target.files?.[0];
+    setFile(f || null);
+    if (!f) {
+      setInvoiceText('');
+      return;
+    }
+    const arrayBuffer = await f.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    let text = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      text += content.items.map((it) => it.str).join(' ') + '\n';
+    }
+    setInvoiceText(text);
+  };
 
   const addField = () => {
     if (newField.trim()) {
@@ -57,12 +80,10 @@ export default function Invoices() {
     <div style={{ padding: '2rem' }}>
       <h1>Invoice Extractor</h1>
       <div style={{ marginBottom: '1rem' }}>
-        <textarea
-          rows={10}
-          style={{ width: '100%' }}
-          placeholder="Paste invoice text here"
-          value={invoiceText}
-          onChange={(e) => setInvoiceText(e.target.value)}
+        <input
+          type="file"
+          accept="application/pdf"
+          onChange={handleFileChange}
         />
       </div>
       <div>
