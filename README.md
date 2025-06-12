@@ -18,6 +18,19 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
+## Invoice Extractor
+
+Navigate to `/invoices` to try the invoice extraction tool. Paste invoice text, specify the fields you want to capture, and the page will display the extracted values in a table. You can export the result as a CSV file.
+
+### Environment Variables
+
+Create a `.env.local` file based on `.env.example` and add your Gemini API key. The invoice extractor uses the Gemini **2.5 Flash Thinking** model:
+
+```bash
+cp .env.example .env.local
+# then edit .env.local and set GEMINI_API_KEY
+```
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
