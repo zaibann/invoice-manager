@@ -24,7 +24,7 @@ Navigate to `/invoices` to try the invoice extraction tool. Paste invoice text, 
 
 ### Environment Variables
 
-Create a `.env.local` file based on `.env.example` and add your Gemini API key:
+Create a `.env.local` file based on `.env.example` and add your Gemini API key. The invoice extractor uses the Gemini **2.5 Flash Thinking** model:
 
 ```bash
 cp .env.example .env.local
