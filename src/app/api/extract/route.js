@@ -11,11 +11,7 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Missing GEMINI_API_KEY' }, { status: 500 });
     }
 
-    // Use the Gemini 2.5 Flash Thinking API
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
-    const prompt = [
-      {
         role: 'user',
         parts: [
           {
